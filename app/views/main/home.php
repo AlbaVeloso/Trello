@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FormacomTrello</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a FormacomTrello</h1>
+        <nav>
+            <ul>
+                <li><a href="<?=base_url()?>login">Login</a></li>
+                <li><a href="app/templates/auth/register.php">Regístrate</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>La solución para tus proyectos</h2>
+            <p>FormacomTrello le ayuda a gestionar sus proyectos de forma eficaz. ¡Únase a nosotros hoy mismo!</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 FormacomTrello. All rights reserved.</p>
+    </footer>
+</body>
+</html>
