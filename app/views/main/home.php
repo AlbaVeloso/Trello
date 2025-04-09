@@ -11,8 +11,8 @@
         <h1>Bienvenido a FormacomTrello</h1>
         <nav>
             <ul>
-                <li><a href="<?=base_url()?>login">Login</a></li>
-                <li><a href="app/templates/auth/register.php">Regístrate</a></li>
+                <li><a href="<?= base_url() ?>main/login">Login</a></li>
+                <li><a href="<?= base_url() ?>main/register">Regístrate</a></li>
             </ul>
         </nav>
     </header>
@@ -25,5 +25,8 @@
     <footer>
         <p>&copy; 2023 FormacomTrello. All rights reserved.</p>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

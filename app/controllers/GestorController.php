@@ -6,7 +6,7 @@ use Formacom\Models\Address;
 
 class GestorController extends Controller{
     public function index(...$params){
-        $customer=Customer::find(1);
+
         $data = ['mensaje' => '¡Bienvenido a la página de inicio!'];
         $this->view('home', $data);
     }

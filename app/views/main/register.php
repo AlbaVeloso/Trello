@@ -9,10 +9,10 @@
 <body>
     <div class="container">
         <h1>Crea tu cuenta</h1>
-        <form action="/path/to/your/registration/handler" method="POST">
+        <form action="" method="POST">
             <div class="form-group">
                 <label for="usuario_colab">Email:</label>
-                <input type="text" id="usuario_colab" name="usuario_colab" required>
+                <input type="text" id="usuario_colab" name="email" required>
             </div>
             <div class="form-group">
                 <label for="contraseña">Contraseña:</label>
@@ -34,13 +34,10 @@
                 <label for="foto">Profile Picture URL:</label>
                 <input type="text" id="foto" name="foto">
             </div>
-            <div class="form-group">
-                <label for="rol">Role:</label>
-                <input type="text" id="rol" name="rol" required>
-            </div>
+
             <button type="submit">Register</button>
         </form>
-        <p>Already have an account? <a href="/path/to/login">Log in here</a>.</p>
+        <p>Ya tienes una cuenta? <a href="<?= base_url() ?>main/login">Entra aquí.</a>.</p>
     </div>
 </body>
 </html>

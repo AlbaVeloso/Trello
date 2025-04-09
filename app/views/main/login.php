@@ -20,7 +20,7 @@
             </div>
             <button type="submit">Login</button>
         </form>
-        <p>Todavía no tienes cuenta? <a href="/path/to/register">Register here</a></p>
+        <p>Todavía no tienes cuenta? <a href="<?= base_url() ?>main/register">Regístrate aquí.</a></p>
     </div>
 </body>
 </html>

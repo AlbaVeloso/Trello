@@ -13,5 +13,7 @@ function base_url() {
     
     // Retorna la URL base con una barra final
     return rtrim($protocol . $_SERVER['HTTP_HOST'] . $script_name, '/\\') . '/';
+    
+    require_once __DIR__ . '/core/helpers.php';
 }
 ?>
