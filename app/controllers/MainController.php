@@ -13,28 +13,33 @@ class MainController extends Controller{
     }
 
     // Removed duplicate login method
-
-    public function login(...$params){
-        if(isset($_POST["email"])){
-            $user=User::where("email",$_POST["email"])->first();
-            if($user && password_verify($_POST["contraseña"],$user->contraseña)){
-                session_start();
-                $_SESSION["email"]=$user->email;
-                header("Location: ".base_url()."gestor/home");
-
-            }else{
-                $error="User or password incorrect";
-                $this->view("login", ["error" => "User or password incorrect"]);
-
+    public function login() {
+            session_start();       
+        if (isset($_POST["email"])) {
+            $user = User::where("email", $_POST["email"])->first();
+            if ($user && password_verify($_POST["contraseña"], $user->contraseña)) {
+                
+                $_SESSION["email"] = $user->email;
+                $_SESSION["usuario_id"] = $user->usuario_id;
+                $_SESSION["nombre"] = $user->nombre;
+                if($user->rol == 'GESTOR'){
+                    header("Location: " . base_url() . "gestor");
+                }else{
+                    header("Location: " . base_url() . "colaborador");
+                }
+                exit();  
+            } else {
+                $error = "Usuario o contraseña incorrectos";
+                $this->view("login", ["error" => $error]);
             }
-            //var_dump($user->password);
-            
-            exit();
-        }else{
+        } else {
             $this->view("login");
         }
-       
     }
+    
+    
+    
+    
 
     public function register(...$params){
         if(isset($_POST["email"])){
@@ -44,12 +49,15 @@ class MainController extends Controller{
                 $this->view("register", [$error]);
             }else{
                 $user = new User();
-                $user->nombre=$_POST['nombre'];
                 $user->email=$_POST['email'];
                 $user->contraseña=password_hash($_POST['contraseña'], PASSWORD_BCRYPT);
+                $user->nombre=$_POST['nombre'];
+                $user->apellidos=$_POST['apellidos'];
+                $user->telefono=$_POST['telefono'];
                 $user->rol='GESTOR';
                 $user->save();
-                header("Location: ".base_url()."login");
+                header("Location: ".base_url()."register");
+                exit();
             }
             exit();
         }

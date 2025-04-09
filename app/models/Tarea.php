@@ -2,7 +2,7 @@
 namespace Formacom\Models;
 use Illuminate\Database\Eloquent\Model;
 use Formacom\Models\Comentarios;
-class Tareas extends Model{
+class Tarea extends Model{
     protected $table="tareas";
     protected $primaryKey = 'tarea_id';
     public $timestamps = false;

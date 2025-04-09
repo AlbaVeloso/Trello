@@ -27,17 +27,17 @@
                 <input type="text" id="apellidos" name="apellidos" required>
             </div>
             <div class="form-group">
-                <label for="telefono">Te:</label>
+                <label for="telefono">Teléfono:</label>
                 <input type="text" id="telefono" name="telefono">
             </div>
             <div class="form-group">
-                <label for="foto">Profile Picture URL:</label>
+                <label for="foto">Foto de perfil URL:</label>
                 <input type="text" id="foto" name="foto">
             </div>
 
-            <button type="submit">Register</button>
+            <button type="submit">Registrar</button>
         </form>
-        <p>Ya tienes una cuenta? <a href="<?= base_url() ?>main/login">Entra aquí.</a>.</p>
+        <p>Ya tienes una cuenta? <a href="<?= base_url() ?>main/login">Entra aquí.</a></p>
     </div>
 </body>
 </html>

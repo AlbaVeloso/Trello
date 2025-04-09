@@ -8,7 +8,7 @@ class User extends Model{
     // Desactivar los timestamps
     public $timestamps = false;
     public function proyectos(){
-        return $this->hasMany(Proyectos::class,"proyecto_id");
+        return $this->hasMany(Proyecto::class,"proyecto_id");
     }
     public function comentarios(){
         return $this->hasMany(Comentarios::class,"comentario_id");
