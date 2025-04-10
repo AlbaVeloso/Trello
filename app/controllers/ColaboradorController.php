@@ -1,63 +1,78 @@
 <?php
 namespace Formacom\controllers;
+
 use Formacom\Core\Controller;
-use Formacom\Models\Customer;
-use Formacom\Models\Address;
-use Formacom\Models\Phone;
+use Formacom\Models\User;
 
-class ColaboradorController extends Controller{
-    public function index(...$params){
-        $customers=Customer::all();
-        //$data = ['mensaje' => '¡Bienvenido a la página de inicio!'];
-        $this->view('home', $customers);
-    }
-    public function show(...$params)  {
-        if(isset($params[0])){
-            $customer=Customer::find($params[0]);
-            if($customer){
-                $this->view('detail',$customer);
-                exit();
-            }
+class ColaboradorController extends Controller {
+
+    public function index(...$params) {
+        if (!isset($_SESSION["usuario_id"])) {
+            header("Location: " . base_url() . "login");
+            exit();
         }
 
-        header("Location: ".base_url()."customer");
+        $usuario_id = $_SESSION["usuario_id"];
+        $projects = []; 
+        $colaboradores = [];
         
+        $this->view('gestor/dashboard', ["projects" => $projects, "colaboradores" => $colaboradores]);
     }
-    public function new(){
-        if(isset($_POST["name"])){
-            $customer=new Customer();
-            $customer->name=$_POST["name"];
-            $customer->save();
-            if(isset($_POST["street"]) && $_POST["street"]!=""){
-                $address=new Address();
-                $address->street=$_POST["street"];
-                $address->zip_code=$_POST["zip_code"];
-                $address->city=$_POST["city"];
-                $address->country=$_POST["country"];
-                $customer->addresses()->save($address);
-            }
-            if(isset($_POST["phonenumber"])&&$_POST["phonenumber"]!=""){
-                $phone=new Phone();
-                $phone->number=$_POST["phonenumber"];
-                $customer->phones()->save($phone);
-            }
-            header("Location: ".base_url()."customer");
 
-            
+    public function nuevoColaborador() {
+        if (!isset($_SESSION["usuario_id"])) {
+            header("Location: " . base_url() . "login");
+            exit();
         }
-        $this->view("new");
+
+        $this->view('nuevocolaborador');
     }
 
-    public function delete(...$params){
-        if(isset($params[0])){
-             $customer=Customer::find($params[0]);
-             if($customer){
-                $customer->delete();
-             }
+    public function crearColaborador() {
+        if (!isset($_SESSION["usuario_id"])) {
+            header("Location: " . base_url() . "login");
+            exit();
         }
-        header("Location: ".base_url()."customer");
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = $_POST['email'] ?? '';
+            $contraseña = $_POST['contraseña'] ?? '';
+            $nombre = $_POST['nombre'] ?? '';
+            $apellidos = $_POST['apellidos'] ?? '';
+            $telefono = $_POST['telefono'] ?? '';
+            $foto = $_POST['foto'] ?? '';
+
+            // Validación básica
+            if (empty($email) || empty($contraseña) || empty($nombre) || empty($apellidos)) {
+                echo "Todos los campos obligatorios deben ser completados.";
+                return;
+            }
+
+            // Verificar si el email ya existe
+            $existingUser = User::where("email", $email)->first();
+            if ($existingUser) {
+                echo "El email ya está registrado.";
+                return;
+            }
+
+            // Crear el nuevo colaborador
+            $colaborador = new User();
+            $colaborador->email = $email;
+            $colaborador->contraseña = password_hash($contraseña, PASSWORD_BCRYPT); // Encripta la contraseña
+            $colaborador->nombre = $nombre;
+            $colaborador->apellidos = $apellidos;
+            $colaborador->telefono = $telefono;
+            $colaborador->foto = $foto; 
+            $colaborador->rol = 'COLABORADOR'; 
+            $colaborador->save();
+
+            // Redirigir al listado de colaboradores con un mensaje de éxito
+            header("Location: " . base_url() . "gestor/dashboard?mensaje=Colaborador creado con éxito");
+            exit();
+        }
+
+        // Si no es una solicitud POST, muestra la vista
+        $this->view('colaborador/nuevocolaborador');
     }
-   
 }
 ?>

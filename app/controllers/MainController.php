@@ -11,8 +11,6 @@ class MainController extends Controller{
         $data = ['mensaje' => '¡Bienvenido a la página de inicio!'];
         $this->view("home");
     }
-
-    // Removed duplicate login method
     public function login() {
             session_start();       
         if (isset($_POST["email"])) {
@@ -38,9 +36,6 @@ class MainController extends Controller{
     }
     
     
-    
-    
-
     public function register(...$params){
         if(isset($_POST["email"])){
             $user=User::where("email",$_POST["email"])->first();
@@ -56,7 +51,7 @@ class MainController extends Controller{
                 $user->telefono=$_POST['telefono'];
                 $user->rol='GESTOR';
                 $user->save();
-                header("Location: ".base_url()."register");
+                header("Location: ".base_url()."main/login");
                 exit();
             }
             exit();

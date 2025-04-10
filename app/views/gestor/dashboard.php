@@ -13,21 +13,21 @@
         <h1 class="my-4">¡Bienvenido, <?= htmlspecialchars($_SESSION['nombre']) ?>!</h1>
         <h2>Tus Proyectos</h2>
         <div class="list-group">
-            
             <?php if (!empty($data["projects"])): ?>
                 <?php foreach ($data["projects"] as $project): ?>
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <?= htmlspecialchars($project->titulo) ?>  
-                    </a>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><?= htmlspecialchars($project->titulo) ?></span>
+                        <a href="<?= base_url() ?>gestor/detalleProyecto/<?= $project->id ?>" class="btn btn-primary btn-sm">Ver Detalle</a>
+                    </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>No tienes proyectos registrados.</p>
             <?php endif; ?>
         </div>
-        <a href="<?= base_url() ?>nuevo-proyecto" class="btn btn-success">Crear Nuevo Proyecto</a>
+        <a href="<?= base_url() ?>gestor/nuevoProyecto" class="btn btn-success mt-3">Crear Nuevo Proyecto</a>
     </div>
 
-    <div class="container">
+    <div class="container mt-5">
         <h2>Tus Colaboradores</h2>
         <div class="list-group">
             <?php if (!empty($data["colaboradores"])): ?>
@@ -40,7 +40,7 @@
                 <p>No tienes colaboradores registrados.</p>
             <?php endif; ?>
         </div>
-        <a href="<?= base_url() ?>dashboard/nuevo-colaborador" class="btn btn-success">Alta Nuevo Colaborador</a>
+        <a href="<?= base_url() ?>colaborador/nuevoColaborador" class="btn btn-success mt-3">Alta Nuevo Colaborador</a>
     </div>
 </body>
 

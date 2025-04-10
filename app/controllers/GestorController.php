@@ -23,16 +23,16 @@ class GestorController extends Controller
         $this->view('dashboard', ["projects" => $projects, "colaboradores" => $colaboradores]);
     }
 
-    public function nuevoProyecto()
-    {
+    public function nuevoProyecto() {
+    
         if (!isset($_SESSION["usuario_id"])) {
             header("Location: " . base_url() . "login");
             exit();
         }
-
-
-        $this->view('nuevo-proyecto');
+    
+        $this->view('nuevoproyecto');
     }
+
     public function crearProyecto()
     {
         if (!isset($_SESSION["usuario_id"])) {
@@ -52,13 +52,42 @@ class GestorController extends Controller
         $proyecto = new Proyecto();
         $proyecto->titulo = $titulo;
         $proyecto->descripcion = $descripcion;
-        $proyecto->usuario_id = $usuario_id; // Asociar el proyecto con el usuario autenticado
-        $proyecto->save();  // Guardar el proyecto en la base de datos
+        $proyecto->usuario_id = $usuario_id; 
+        $proyecto->save();
 
-        // Redirigir de vuelta al dashboard
-        header("Location: " . base_url() . "dashboard");
+        $this->view('dashboard', ["mensaje" => "Proyecto creado con éxito."]);
+        header("Location: " . base_url() . "gestor");
+        
+
         exit();
     }
 
+    public function detalleProyecto($id){    
+    
+        if (!isset($_SESSION["usuario_id"])) {
+            header("Location: " . base_url() . "login");
+            exit();
+        }
+    
+        // Obtén el proyecto por su ID
+        $proyecto = Proyecto::find($id);
+    
+        if (!$proyecto) {
+            echo "El proyecto no existe.";
+            return;
+        }
+    
+        // Carga la vista del detalle del proyecto
+        $this->view('gestor/detalleproyecto', ["proyecto" => $proyecto]);
+    }
+
+
+
+
+
+
+
+
+    
 }
 ?>
