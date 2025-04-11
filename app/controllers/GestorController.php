@@ -136,7 +136,7 @@ class GestorController extends Controller
 
     $proyecto->delete();
 
-    header("Location: " . base_url() . "dashboard");
+    header("Location: " . base_url() . "gestor/dashboard");
     exit();
 }
 
