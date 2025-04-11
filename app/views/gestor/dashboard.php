@@ -10,20 +10,27 @@
 
 <body>
     <div class="container">
-        <h1 class="my-4">¡Bienvenido, <?= htmlspecialchars($_SESSION['nombre']) ?>!</h1>
-        <h2>Tus Proyectos</h2>
-        <div class="list-group">
-            <?php if (!empty($data["projects"])): ?>
-                <?php foreach ($data["projects"] as $project): ?>
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <span><?= htmlspecialchars($project->titulo) ?></span>
-                        <a href="<?= base_url() ?>gestor/detalleProyecto/<?= $project->id ?>" class="btn btn-primary btn-sm">Ver Detalle</a>
+        <h1 class="my-4">Tus Proyectos</h1>
+
+        <?php if (!empty($data["projects"])): ?>
+            <div class="list-group">
+                <?php foreach ($data["projects"] as $proyecto): ?>
+                    <div class="list-group-item mb-3">
+                        <h5><strong>Título:</strong> <?= htmlspecialchars($proyecto->titulo) ?></h5>
+                        <p><strong>Descripción:</strong> <?= htmlspecialchars($proyecto->descripcion) ?></p>
+                        <p><strong>Creado por Usuario ID:</strong> <?= htmlspecialchars($proyecto->usuario_id) ?></p>
+                        <a href="<?= base_url() ?>gestor/detalleProyecto/<?= $proyecto->proyecto_id ?>" class="btn btn-info">Ver Detalles</a>
+                        <a href="<?= base_url() ?>gestor/editarProyecto/<?= $proyecto->proyecto_id ?>" class="btn btn-warning">Editar</a>
+                        <form action="<?= base_url() ?>gestor/eliminarProyecto/<?= $proyecto->proyecto_id ?>" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
                     </div>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <p>No tienes proyectos registrados.</p>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php else: ?>
+            <p>No tienes proyectos registrados.</p>
+        <?php endif; ?>
+
         <a href="<?= base_url() ?>gestor/nuevoProyecto" class="btn btn-success mt-3">Crear Nuevo Proyecto</a>
     </div>
 
